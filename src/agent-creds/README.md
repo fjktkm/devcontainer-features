@@ -1,33 +1,20 @@
-# Agent Credentials
 
-Persist coding agent credentials (Claude Code and Codex) across dev container rebuilds.
+# Agent Credentials (agent-creds)
 
-## Usage
+Persist coding agent credentials (Claude Code and Codex) across dev container rebuilds using Docker volumes
 
-Add to VS Code User Settings (`settings.json`):
+## Example Usage
 
 ```json
-{
-  "dev.containers.defaultFeatures": {
+"features": {
     "ghcr.io/fjktkm/devcontainer-features/agent-creds:1": {}
-  }
 }
 ```
 
-## How It Works
 
-- Creates Docker volumes for each agent
-- Symlinks `~/.claude` and `~/.codex` to volumes
-- Credentials persist across container rebuilds
 
-## Troubleshooting
 
-Check symlinks:
-```bash
-ls -la ~/.claude ~/.codex
-```
 
-Reset credentials:
-```bash
-docker volume rm claude-creds codex-creds
-```
+---
+
+_Note: This file was auto-generated from the [devcontainer-feature.json](https://github.com/fjktkm/devcontainer-features/blob/main/src/agent-creds/devcontainer-feature.json).  Add additional notes to a `NOTES.md`._
