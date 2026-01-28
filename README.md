@@ -4,7 +4,7 @@ A collection of dev container features for improving development workflow.
 
 ## `agent-creds`
 
-Persist coding agent credentials (Claude Code and Codex) across dev container rebuilds using Docker volumes.
+Persist coding agent credentials (Claude Code, Codex and Gemini Code Assist) across dev container rebuilds using Docker volumes.
 
 **Usage:** Add to VS Code User Settings (`settings.json`):
 
