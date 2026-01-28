@@ -1,7 +1,7 @@
 
 # Agent Credentials (agent-creds)
 
-Persist coding agent credentials (Claude Code and Codex) across dev container rebuilds using Docker volumes
+Persist coding agent credentials (Claude Code, Codex, Gemini Code Assist) across dev container rebuilds using Docker volumes
 
 ## Example Usage
 
