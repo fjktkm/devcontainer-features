@@ -1,7 +1,7 @@
 {
     "name": "Agent Credentials",
     "id": "agent-creds",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "Persist coding agent credentials (Claude Code, Codex, Gemini Code Assist) across dev container rebuilds using Docker volumes",
     "mounts": [
         {
