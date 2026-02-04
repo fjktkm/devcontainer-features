@@ -29,6 +29,7 @@
     "installsAfter": [
         "ghcr.io/devcontainers/features/common-utils"
     ],
+    "postStartCommand": "/bin/sh -c '. /usr/local/share/agent-creds/env && /usr/local/share/agent-creds/post-start.sh'",
     "mounts": [
         {
             "source": "claude",

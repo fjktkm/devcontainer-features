@@ -2,13 +2,26 @@
 
 set -e
 
-# Setup symlink from volume mount to home directory
+TARGET_USER="$(id -un)"
+TARGET_GROUP="$(id -gn)"
+RUN_AS_ROOT=""
+if [ "$(id -u)" -ne 0 ]; then
+    command -v sudo >/dev/null 2>&1 && RUN_AS_ROOT="sudo" || {
+        echo "Skipped: sudo not available for permission fixes"
+        exit 0
+    }
+fi
+
 setup_symlink() {
-    mkdir -p "$1"
-    mkdir -p "$(dirname "$HOME/$2")"
-    [ -e "$HOME/$2" ] && [ ! -L "$HOME/$2" ] && rm -rf "$HOME/$2"
-    ln -sf "$1" "$HOME/$2"
-    chmod -R 777 "$1" 2>/dev/null || true
+    src="$1"
+    dest="$2"
+    mkdir -p "$(dirname "$HOME/$dest")"
+    [ -e "$HOME/$dest" ] && [ ! -L "$HOME/$dest" ] && rm -rf "$HOME/$dest"
+    ln -sf "$src" "$HOME/$dest"
+    if [ -e "$src" ]; then
+        ${RUN_AS_ROOT} chown -R "${TARGET_USER}:${TARGET_GROUP}" "$src" 2>/dev/null || true
+        ${RUN_AS_ROOT} chmod -R 777 "$src" 2>/dev/null || true
+    fi
 }
 
 if [ "$CLAUDE" = "true" ]; then
