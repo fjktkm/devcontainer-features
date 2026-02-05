@@ -1,13 +1,15 @@
+### **IMPORTANT NOTE**
+- **Ids used to publish this Feature in the past - 'agent-creds'**
 
-# Agent Credentials (agent-creds)
+# Agent Persistence (agent-persistence)
 
-Persist coding agent credentials (Claude Code, Codex, Gemini Code Assist, GitHub CLI) across dev container rebuilds using Docker volumes
+Persist configurations for coding agents (Claude Code, Codex, Gemini Code Assist) and tools they commonly use (GitHub CLI) across dev container rebuilds using Docker volumes
 
 ## Example Usage
 
 ```json
 "features": {
-    "ghcr.io/fjktkm/devcontainer-features/agent-creds:1": {}
+    "ghcr.io/fjktkm/devcontainer-features/agent-persistence:1": {}
 }
 ```
 
@@ -24,4 +26,4 @@ Persist coding agent credentials (Claude Code, Codex, Gemini Code Assist, GitHub
 
 ---
 
-_Note: This file was auto-generated from the [devcontainer-feature.json](https://github.com/fjktkm/devcontainer-features/blob/main/src/agent-creds/devcontainer-feature.json).  Add additional notes to a `NOTES.md`._
+_Note: This file was auto-generated from the [devcontainer-feature.json](https://github.com/fjktkm/devcontainer-features/blob/main/src/agent-persistence/devcontainer-feature.json).  Add additional notes to a `NOTES.md`._
