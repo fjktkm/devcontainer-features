@@ -12,10 +12,10 @@ INSTALL_DIR="/usr/local/share/agent-persistence"
 
 mkdir -p "${INSTALL_DIR}"
 
-cp "${SCRIPT_DIR}/post-create.sh" "${INSTALL_DIR}/post-create.sh"
-cp "${SCRIPT_DIR}/post-start.sh" "${INSTALL_DIR}/post-start.sh"
-chmod +x "${INSTALL_DIR}/post-create.sh"
-chmod +x "${INSTALL_DIR}/post-start.sh"
+cp "${SCRIPT_DIR}/oncreate.sh" "${INSTALL_DIR}/oncreate.sh"
+cp "${SCRIPT_DIR}/poststart.sh" "${INSTALL_DIR}/poststart.sh"
+chmod +x "${INSTALL_DIR}/oncreate.sh"
+chmod +x "${INSTALL_DIR}/poststart.sh"
 
 cat > "${INSTALL_DIR}/env" <<EOF
 export CLAUDE="${CLAUDE:-true}"
