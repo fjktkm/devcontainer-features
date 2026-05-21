@@ -1,6 +1,6 @@
 {
     "id": "agent-persistence",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "name": "Agent Persistence",
     "description": "Persist configurations for coding agents (Claude Code, Codex, Gemini Code Assist) and tools they commonly use (GitHub CLI) across dev container rebuilds using Docker volumes",
     "documentationURL": "https://github.com/fjktkm/devcontainer-features/tree/main/src/agent-persistence",
