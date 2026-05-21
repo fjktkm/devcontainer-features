@@ -5,10 +5,22 @@
             "agent-persistence": {}
         }
     },
-    "with_debian": {
-        "image": "mcr.microsoft.com/devcontainers/base:debian",
+    "workspace_scope": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
         "features": {
-            "agent-persistence": {}
+            "agent-persistence": {
+                "scope": "workspace"
+            }
+        }
+    },
+    "claude_only": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "agent-persistence": {
+                "codex": false,
+                "gemini": false,
+                "github-cli": false
+            }
         }
     }
 }

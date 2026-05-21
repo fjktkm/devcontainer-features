@@ -2,22 +2,11 @@
 
 set -e
 
-# Optional: Import test library bundled with the devcontainer CLI
 source dev-container-features-test-lib
 
-# Feature-specific tests
-check "agent-persistence directories created" test -d "$HOME/.claude" -o -d "$HOME/.codex"
+check "claude symlink points to user volume" bash -c 'readlink "$HOME/.claude" | grep -q agent-persistence-user'
+check "codex symlink points to user volume" bash -c 'readlink "$HOME/.codex" | grep -q agent-persistence-user'
+check "gemini symlink points to user volume" bash -c 'readlink "$HOME/.gemini" | grep -q agent-persistence-user'
+check "gh config symlink points to user volume" bash -c 'readlink "$HOME/.config/gh" | grep -q agent-persistence-user'
 
-# Check that at least one agent directory exists
-if [ -d "$HOME/.claude" ]; then
-    check "claude directory exists" test -d "$HOME/.claude"
-    echo "✓ Claude Code directory mounted"
-fi
-
-if [ -d "$HOME/.codex" ]; then
-    check "codex directory exists" test -d "$HOME/.codex"
-    echo "✓ Codex directory mounted"
-fi
-
-# Report result
 reportResults
