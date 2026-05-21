@@ -27,7 +27,9 @@ setup_symlink() {
     dest="$1"
     src="${VOLUME_ROOT}/${dest}"
     mkdir -p "$src"
-    mkdir -p "$(dirname "$HOME/$dest")"
+    parent="$(dirname "$HOME/$dest")"
+    mkdir -p "$parent"
+    ${RUN_AS_ROOT} chmod a+rwX "$parent" 2>/dev/null || true
     [ -e "$HOME/$dest" ] && [ ! -L "$HOME/$dest" ] && rm -rf "$HOME/$dest"
     ln -sf "$src" "$HOME/$dest"
 }
