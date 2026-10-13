@@ -1,8 +1,8 @@
 {
     "id": "agent-persistence",
-    "version": "1.4.1",
+    "version": "2.0.0",
     "name": "Agent Persistence",
-    "description": "Persist configurations for coding agents (Claude Code, Codex, Gemini Code Assist) and tools they commonly use (GitHub CLI) across dev container rebuilds using Docker volumes",
+    "description": "Install Codex, Claude, Gemini and GitHub CLI persistence Features, each with its own shared Docker volume.",
     "documentationURL": "https://github.com/fjktkm/devcontainer-features/tree/main/src/agent-persistence",
     "keywords": [
         "claude",
@@ -13,49 +13,13 @@
         "ai",
         "coding-agent"
     ],
-    "options": {
-        "scope": {
-            "type": "string",
-            "enum": ["user", "workspace"],
-            "default": "user",
-            "description": "Volume scope for agent config persistence. 'user': all devcontainers share one volume. 'workspace': each devcontainer gets its own volume (keyed by devcontainerId)."
-        },
-        "claude": {
-            "type": "boolean",
-            "default": true,
-            "description": "Mount Claude Code config directory (~/.claude) via volume."
-        },
-        "codex": {
-            "type": "boolean",
-            "default": true,
-            "description": "Mount Codex config directory (~/.codex) via volume."
-        },
-        "gemini": {
-            "type": "boolean",
-            "default": true,
-            "description": "Mount Gemini Code Assist directories (~/.gemini, ~/.cache/google-vscode-extension, ~/.cache/cloud-code) via volumes."
-        },
-        "github-cli": {
-            "type": "boolean",
-            "default": true,
-            "description": "Mount GitHub CLI config directory (~/.config/gh) via volume."
-        }
-    },
     "legacyIds": [
         "agent-creds"
     ],
-    "mounts": [
-        {
-            "source": "agent-persistence",
-            "target": "/mnt/agent-persistence-user",
-            "type": "volume"
-        },
-        {
-            "source": "agent-persistence-${devcontainerId}",
-            "target": "/mnt/agent-persistence-workspace",
-            "type": "volume"
-        }
-    ],
-    "onCreateCommand": ". /usr/local/share/agent-persistence/env && /usr/local/share/agent-persistence/oncreate.sh",
-    "postStartCommand": ". /usr/local/share/agent-persistence/env && /usr/local/share/agent-persistence/poststart.sh"
+    "dependsOn": {
+        "ghcr.io/fjktkm/devcontainer-features/codex-persistence:1": {},
+        "ghcr.io/fjktkm/devcontainer-features/claude-persistence:1": {},
+        "ghcr.io/fjktkm/devcontainer-features/gemini-persistence:1": {},
+        "ghcr.io/fjktkm/devcontainer-features/github-cli-persistence:1": {}
+    }
 }

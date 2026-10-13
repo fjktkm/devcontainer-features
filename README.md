@@ -4,19 +4,17 @@ A collection of dev container features for improving development workflow.
 
 ## `agent-persistence`
 
-Persist configurations for coding agents (Claude Code, Codex, Gemini Code Assist) and tools they commonly use (GitHub CLI) across dev container rebuilds using Docker volumes.
+Install all four persistence Features (Claude Code, Codex, Gemini and GitHub CLI), each with its own Docker volumes. This Feature has no options and uses the default `user` scope. To select tools or use `workspace` scope, add the individual Features below.
 
 **Usage:** Add to VS Code User Settings (`settings.json`):
 
 ```json
 {
   "dev.containers.defaultFeatures": {
-    "ghcr.io/fjktkm/devcontainer-features/agent-persistence:1": {}
+    "ghcr.io/fjktkm/devcontainer-features/agent-persistence:2": {}
   }
 }
 ```
-
-See [src/agent-persistence/README.md](src/agent-persistence/README.md) for more details.
 
 ## Selected tools
 

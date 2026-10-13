@@ -1,23 +1,10 @@
 #!/bin/bash
-
 set -e
-
-# Optional: Import test library bundled with the devcontainer CLI
 source dev-container-features-test-lib
-
-# Feature-specific tests
-check "agent-persistence directories created" test -d "$HOME/.claude" -o -d "$HOME/.codex"
-
-# Check that at least one agent directory exists
-if [ -d "$HOME/.claude" ]; then
-    check "claude directory exists" test -d "$HOME/.claude"
-    echo "✓ Claude Code directory mounted"
-fi
-
-if [ -d "$HOME/.codex" ]; then
-    check "codex directory exists" test -d "$HOME/.codex"
-    echo "✓ Codex directory mounted"
-fi
-
-# Report result
+check ".codex uses codex volume" test "$(readlink "$HOME/.codex")" = "/mnt/codex-persistence-user/.codex"
+check ".claude uses claude volume" test "$(readlink "$HOME/.claude")" = "/mnt/claude-persistence-user/.claude"
+check ".gemini uses gemini volume" test "$(readlink "$HOME/.gemini")" = "/mnt/gemini-persistence-user/.gemini"
+check ".cache/google-vscode-extension uses gemini volume" test "$(readlink "$HOME/.cache/google-vscode-extension")" = "/mnt/gemini-persistence-user/.cache/google-vscode-extension"
+check ".cache/cloud-code uses gemini volume" test "$(readlink "$HOME/.cache/cloud-code")" = "/mnt/gemini-persistence-user/.cache/cloud-code"
+check ".config/gh uses github-cli volume" test "$(readlink "$HOME/.config/gh")" = "/mnt/github-cli-persistence-user/.config/gh"
 reportResults
