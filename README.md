@@ -17,3 +17,36 @@ Persist configurations for coding agents (Claude Code, Codex, Gemini Code Assist
 ```
 
 See [src/agent-persistence/README.md](src/agent-persistence/README.md) for more details.
+
+## Selected tools
+
+Add only the Features you need, for example:
+
+```json
+"features": {
+    "ghcr.io/fjktkm/devcontainer-features/codex-persistence:1": {},
+    "ghcr.io/fjktkm/devcontainer-features/github-cli-persistence:1": {}
+}
+```
+
+| Feature | Persisted directories |
+| --- | --- |
+| `codex-persistence` | `~/.codex` |
+| `claude-persistence` | `~/.claude` |
+| `gemini-persistence` | `~/.gemini`, `~/.cache/google-vscode-extension`, `~/.cache/cloud-code` |
+| `github-cli-persistence` | `~/.config/gh` |
+
+Individual tool Features support `scope`:
+
+- `user` (default): share configuration between containers on the same Docker host.
+- `workspace`: separate configuration by `devcontainerId`.
+
+For example:
+
+```json
+"features": {
+    "ghcr.io/fjktkm/devcontainer-features/codex-persistence:1": {
+        "scope": "workspace"
+    }
+}
+```

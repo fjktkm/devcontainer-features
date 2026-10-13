@@ -1,0 +1,36 @@
+{
+    "id": "gemini-persistence",
+    "version": "1.0.0",
+    "name": "Gemini Persistence",
+    "description": "Persist Gemini configuration across dev container rebuilds using a dedicated Docker volume with user or workspace scope.",
+    "documentationURL": "https://github.com/fjktkm/devcontainer-features/tree/main/src/gemini-persistence",
+    "keywords": [
+        "gemini",
+        "persistence"
+    ],
+    "mounts": [
+        {
+            "source": "gemini-persistence",
+            "target": "/mnt/gemini-persistence-user",
+            "type": "volume"
+        },
+        {
+            "source": "gemini-persistence-${devcontainerId}",
+            "target": "/mnt/gemini-persistence-workspace",
+            "type": "volume"
+        }
+    ],
+    "onCreateCommand": ". /usr/local/share/gemini-persistence/env && /usr/local/share/gemini-persistence/oncreate.sh",
+    "postStartCommand": ". /usr/local/share/gemini-persistence/env && /usr/local/share/gemini-persistence/poststart.sh",
+    "options": {
+        "scope": {
+            "type": "string",
+            "enum": [
+                "user",
+                "workspace"
+            ],
+            "default": "user",
+            "description": "Volume scope for config persistence. 'user': all devcontainers share one volume. 'workspace': each devcontainer gets its own volume (keyed by devcontainerId)."
+        }
+    }
+}

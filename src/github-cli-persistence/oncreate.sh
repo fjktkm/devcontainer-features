@@ -1,0 +1,38 @@
+#!/bin/sh
+
+set -e
+
+if [ "${SCOPE}" = "workspace" ]; then
+    VOLUME_ROOT="/mnt/github-cli-persistence-workspace"
+else
+    VOLUME_ROOT="/mnt/github-cli-persistence-user"
+fi
+if [ -e "${VOLUME_ROOT}" ]; then
+    TARGET_USER="$(id -un)"
+    TARGET_GROUP="$(id -gn)"
+    RUN_AS_ROOT=""
+    if [ "$(id -u)" -ne 0 ]; then
+        command -v sudo >/dev/null 2>&1 && RUN_AS_ROOT="sudo -n"
+    fi
+    if [ -n "${RUN_AS_ROOT}" ] || [ "$(id -u)" -eq 0 ]; then
+        ${RUN_AS_ROOT} chown -R "${TARGET_USER}:${TARGET_GROUP}" "${VOLUME_ROOT}" 2>/dev/null || true
+        ${RUN_AS_ROOT} chmod -R 777 "${VOLUME_ROOT}" 2>/dev/null || true
+        echo "Permissions set: github-cli-persistence volume"
+    else
+        echo "Skipped: sudo not available for permission fixes"
+    fi
+fi
+
+setup_symlink() {
+    dest="$1"
+    src="${VOLUME_ROOT}/${dest}"
+    mkdir -p "$src"
+    parent="$(dirname "$HOME/$dest")"
+    mkdir -p "$parent"
+    ${RUN_AS_ROOT} chmod a+rwX "$parent" 2>/dev/null || true
+    [ -e "$HOME/$dest" ] && [ ! -L "$HOME/$dest" ] && rm -rf "$HOME/$dest"
+    ln -sf "$src" "$HOME/$dest"
+}
+
+setup_symlink ".config/gh"
+echo "Symlinked: GitHub CLI"

@@ -1,0 +1,18 @@
+{
+    "user": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "codex-persistence": {
+                "scope": "user"
+            }
+        }
+    },
+    "workspace": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "codex-persistence": {
+                "scope": "workspace"
+            }
+        }
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "id": "github-cli-persistence",
+    "version": "1.0.0",
+    "name": "GitHub CLI Persistence",
+    "description": "Persist GitHub CLI configuration across dev container rebuilds using a dedicated Docker volume with user or workspace scope.",
+    "documentationURL": "https://github.com/fjktkm/devcontainer-features/tree/main/src/github-cli-persistence",
+    "keywords": [
+        "github-cli",
+        "persistence"
+    ],
+    "mounts": [
+        {
+            "source": "github-cli-persistence",
+            "target": "/mnt/github-cli-persistence-user",
+            "type": "volume"
+        },
+        {
+            "source": "github-cli-persistence-${devcontainerId}",
+            "target": "/mnt/github-cli-persistence-workspace",
+            "type": "volume"
+        }
+    ],
+    "onCreateCommand": ". /usr/local/share/github-cli-persistence/env && /usr/local/share/github-cli-persistence/oncreate.sh",
+    "postStartCommand": ". /usr/local/share/github-cli-persistence/env && /usr/local/share/github-cli-persistence/poststart.sh",
+    "options": {
+        "scope": {
+            "type": "string",
+            "enum": [
+                "user",
+                "workspace"
+            ],
+            "default": "user",
+            "description": "Volume scope for config persistence. 'user': all devcontainers share one volume. 'workspace': each devcontainer gets its own volume (keyed by devcontainerId)."
+        }
+    }
+}
